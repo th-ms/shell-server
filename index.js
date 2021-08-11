@@ -16,7 +16,11 @@ app.use(express.static('public'));
 app.post('/api/submit', (req, res) => {
     res.json({
         headers: req.headers,
-        ip: req.ip,
+        ip: [
+            req.headers['x-forwarded-for'],
+            req.socket.remoteAddress,
+            req.ip
+        ],
         body: req.body
     })
 })
@@ -31,7 +35,7 @@ app.get('/api/submit', (req, res) => {
             req.headers['x-forwarded-for'],
             req.socket.remoteAddress,
             req.ip
-        ] 
+        ]
     })
 })
 
