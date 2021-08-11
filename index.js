@@ -11,7 +11,7 @@ app.post('/api/submit', (req, res) => {
 app.get('/api/submit', (req, res) => {
     res.json({
         headers: req.headers,
-        ip: req.ip
+        ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.ip
     })
 })
 
